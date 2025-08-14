@@ -11,8 +11,8 @@ extends Node
 
 # ? Brief overview of what your mod does...
 
-const MOD_DIR := "AuthorName-ModName" # Name of the directory that this file is in
-const LOG_NAME := "AuthorName-ModName:Main" # Full ID of the mod (AuthorName-ModName)
+const MOD_DIR := "MagicJinn-MoreRain" # Name of the directory that this file is in
+const LOG_NAME := "MagicJinn-MoreRain:Main" # Full ID of the mod (MagicJinn-MoreRain)
 
 var mod_dir_path := ""
 var extensions_dir_path := ""
@@ -20,14 +20,15 @@ var translations_dir_path := ""
 
 
 # ! your _ready func.
-func _init() -> void:
+func _init():
 	ModLoaderLog.info("Init", LOG_NAME)
 	mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(MOD_DIR)
 	patch_raindrops()
 
-func patch_raindrops() -> void:
-	ModLoaderLog.info("patching raindrops", LOG_NAME)
-	ModLoader.install_script_extension("res://mods-unpacked/MagicJinn-MoreRain/extensions/patch_raindrops.gd")
+func patch_raindrops():
+	ModLoaderLog.info("Patching raindrops", LOG_NAME)
+	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/patch_raindrops.gd"))
+	# ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/patch_raindrops_falling.gd"))
 
-func _ready() -> void:
+func _ready():
 	ModLoaderLog.info("Ready", LOG_NAME)
