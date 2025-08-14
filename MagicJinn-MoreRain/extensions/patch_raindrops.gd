@@ -1,13 +1,11 @@
 extends "res://actors/specialfx/particles/fx_particles_rain.gd"
 
-const LOG_NAME := "AuthorName-ModName:Main" # Full ID of the mod (AuthorName-ModName)
+func _ready():
+	particles_rain_max = 3000
+	super()
 
-func _process(delta: float) -> void:
+func _process(delta):
 	counter_raindropspawn_current = counter_raindropspawn_max
 	control_main.world_weather_raining = true
-	ModLoaderLog.info("Ready", LOG_NAME)
-	super (delta)
-	super (delta)
-	super (delta)
-	super (delta)
-	super (delta)
+	for i in 10:
+		super (delta)
