@@ -1,0 +1,30 @@
+{
+	"dependencies": [],
+	"description": "Add more raindrops to Primal Planet",
+	"extra": {
+		"godot": {
+			"authors": [
+				"MagicJinn"
+			],
+			"compatible_game_version": [],
+			"compatible_mod_loader_version": [
+				"7.0.0"
+			],
+			"config_schema": {
+
+			},
+			"description_rich": "",
+			"image": null,
+			"incompatibilities": [],
+			"load_before": [],
+			"optional_dependencies": [],
+			"tags": [
+				"Graphics"
+			]
+		}
+	},
+	"name": "MoreRain",
+	"namespace": "MagicJinn",
+	"version_number": "1.0.0",
+	"website_url": "https://github.com/MagicJinn/Primal-Planet-More-Rain"
+}
