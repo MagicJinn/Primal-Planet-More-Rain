@@ -1,6 +1,9 @@
 extends Node
 
-var rain_multiplier = 30
+var rain_multiplier = 60
+
+var raindrop_pool_active = []
+var raindrop_pool_inactive = []
 
 const MOD_DIR := "MagicJinn-MoreRain" # Name of the directory that this file is in
 const LOG_NAME := MOD_DIR + ":Main" # Full ID of the mod (MagicJinn-MoreRain)

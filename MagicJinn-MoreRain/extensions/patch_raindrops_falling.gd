@@ -1,15 +1,10 @@
 extends "res://actors/specialfx/particles/fx_particle_raindrop.gd"
 
-@onready var group = get_instance_id() % 100; # Assign a group which decides whether the particle should burst
-const MIN_BURST = 25
-var burst_percentage
-
 @onready var mod = ModLoader.get_node("MagicJinn-MoreRain")
 @onready var rain_multiplier = mod.rain_multiplier
 
-func _ready():
-	burst_percentage = clamp(100.0 / rain_multiplier * 3, 1, 100)
-	super ()
+@onready var group = get_instance_id() % 100; # Assign a group which decides whether the particle should burst
+@onready var burst_percentage = clamp(100.0 / rain_multiplier * 1.5, 1, 100)
 
 func _on_area_2d_particle_raindrop_body_entered(body):
 	var is_terrain = (
@@ -43,6 +38,60 @@ func _on_area_2d_particle_raindrop_body_entered(body):
 		if burst_chance:
 			burst = true
 
-# func _physics_process(delta):
-# 	ModLoaderLog.info("Patching raindrops", "LOG_NAME")
-# 	super (delta)
+func _physics_process(delta):
+	if control_main.move_allowed == true:
+		animatedsprite_particle.play()
+
+		if burst_ended == true:
+			control_main.particles_raindrop_amount -= 1
+			# queue_free()
+			mod.raindrop_pool_inactive.append(self)
+			mod.raindrop_pool_active.erase(self)
+			burst = false 
+			burst_ended = false
+			hide()
+			return;
+
+		if burst == false:
+			var num = 0
+			if drop_foreground:
+				motion.y = control_main.GRAVITY_MAX
+			else:
+				motion.y = control_main.GRAVITY_MAX * 0.6
+				num+=2
+				 
+			if on_screen == true:
+				animatedsprite_particle.play("idle")
+				if drop_size_small == true:
+					animatedsprite_particle.frame = num
+				else:
+					animatedsprite_particle.frame = num + 1
+			else:
+				animatedsprite_particle.play("nothing")	
+
+			if counter_liftime_current < counter_liftime_max:
+				counter_liftime_current += control_main.GAME_FPS * delta
+			else:
+				counter_liftime_current = 0
+				burst_ended = true
+
+		else:
+			# if raindrop_collisionshape_disabled == false:
+			# 	raindrop_collisionshape_disabled = true
+			# 	CollisionShape2D_raindroparea.call_deferred("set_disabled", true)
+			if on_screen == true and group < burst_percentage:
+				motion.x = 0
+				motion.y = 0
+
+				animatedsprite_particle.play("burst")
+				if animatedsprite_particle.frame >= 4:
+					burst_ended = true
+			else:
+				burst_ended = true
+
+		set_velocity(motion)
+		set_up_direction(control_main.FLOOR)
+		move_and_slide()
+		motion = velocity
+	else:
+		animatedsprite_particle.pause()
