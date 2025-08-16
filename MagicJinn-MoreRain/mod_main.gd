@@ -1,6 +1,6 @@
 extends Node
 
-var rain_multiplier = 60
+var rain_multiplier = 20
 
 var raindrop_pool_active = []
 var raindrop_pool_inactive = []
@@ -20,6 +20,3 @@ func patch_raindrops():
 	ModLoaderLog.info("Patching raindrops", LOG_NAME)
 	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/patch_raindrops.gd"))
 	ModLoaderMod.install_script_extension(mod_dir_path.path_join("extensions/patch_raindrops_falling.gd"))
-
-func _ready():
-	ModLoaderLog.info("Ready", LOG_NAME)
