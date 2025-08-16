@@ -12,7 +12,6 @@ func _ready():
 	super()
 
 func _process(delta):
-	control_main.world_weather_raining = true #$TEMP
 	for i in rain_multiplier:
 		super (delta)
 
