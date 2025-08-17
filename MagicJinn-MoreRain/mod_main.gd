@@ -1,6 +1,6 @@
 extends Node
 
-var rain_multiplier = 20
+var rain_multiplier = 15
 
 var raindrop_pool_active = []
 var raindrop_pool_inactive = []

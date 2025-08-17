@@ -4,7 +4,7 @@ extends "res://actors/specialfx/particles/fx_particle_raindrop.gd"
 @onready var rain_multiplier = mod.rain_multiplier
 
 @onready var group = get_instance_id() % 100; # Assign a group which decides whether the particle should burst
-@onready var burst_percentage = clamp(100.0 / rain_multiplier, 1, 100)
+@onready var burst_percentage = clamp(100.0 / (rain_multiplier/2), 1, 100)
 @onready var burst_chance = group < burst_percentage
 var this_gravity;
 
